@@ -234,6 +234,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Plus, Trash2, Search, Pencil, Book, FileText, Edit } from "lucide-react";
 import { useApp } from "../store/AppContext";
+import { showToast } from "../utils/toastHelper";
 
 const Bag = () => {
   const {
@@ -266,7 +267,12 @@ const Bag = () => {
 
   const [activeNotebook, setActiveNotebook] = useState(null);
   const [activePage, setActivePage] = useState(null);
-  // const [editorContent, setEditorContent] = useState("");
+  const [editorContent, setEditorContent] = useState("");
+  useEffect(() => {
+    if (currentPage) {
+      setEditorContent(currentPage.content || "");
+    }
+  }, [activePage]);
 
   // const updateContent = (value) => {
   //   const updated = bag.notebooks.map(nb => {
@@ -645,10 +651,28 @@ const Bag = () => {
           /> */}
               <textarea
                 value={currentPage.content}
-                onChange={(e) => updateContent(e.target.value)}
+                onChange={(e) => {
+                  setEditorContent(e.target.value);
+                  updateContent(e.target.value);
+
+                }}
                 // onBlur={() => updateContent(editorContent)}
                 className="flex-1 w-full bg-gray-800 text-white rounded-lg p-4 focus:outline-none resize-none"
               />
+              <button
+                onClick={async() => {
+                  try {
+                    if (!activePage) return;
+                    await updatePage(activePage, editorContent);
+                    showToast({ message: "Saved Content", status: "success" }); 
+                  } catch (error) {
+                    showToast({ message: error.message || "Error Saving", status: "success" });
+                  }
+                }}
+                className="mt-3 px-4 py-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white rounded-lg self-end"
+              >
+                Save
+              </button>
             </>
           ) : (
             <div className="flex items-center justify-center flex-1 text-gray-400">
