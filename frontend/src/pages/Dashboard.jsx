@@ -116,7 +116,7 @@ const Dashboard = () => {
 
             <div className="rounded w-full mb-6 p-4 flex flex-col items-center">
               <div className='w-full flex items-end justify-end'>
-                <button className='bg-white/10 hover:bg-white/15 cursor-pointer border flex gap-2 border-white/15 hover:border-white/25 px-4 py-2 text-white rounded-2xl default-bold'> <UserPen size={20}/> <span>Edit</span></button>
+                <button className='bg-white/10 hover:bg-white/15 cursor-pointer border flex gap-2 border-white/15 hover:border-white/25 hover:translate-y-0.5 px-4 py-2 text-white rounded-2xl default-bold shadow-[0_0_10px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300'> <UserPen size={20}/> <span>Edit</span></button>
               </div>
               {/* Image div  */}
               <div className='h-30 w-30 rounded-full relative group border-6 border-black/15 shadow-[0_0_40px_rgba(99,102,241,0.2)] shrink-0'>
