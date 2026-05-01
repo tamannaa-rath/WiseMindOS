@@ -52,7 +52,6 @@ const Dashboard = () => {
       try {
         const res = await statsAPI.getWeekly();
 
-        console.log(res);
         if (res.success) {
           const formatted = res.data.map(item => ({
             name: new Date(item.date).toLocaleDateString('en-US', { weekday: 'short' }),
@@ -70,7 +69,6 @@ const Dashboard = () => {
 
     fetchStats();
     console.log("Weekly Data:", weeklyData);
-    console.log(user);
   }, []);
 
   const avgProductivity =

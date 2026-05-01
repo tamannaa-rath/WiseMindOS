@@ -5,7 +5,6 @@ import ProgressBar from './ProgressBar';
 const GoalCard = ({ goal, progress, onClick }) => {
 
   const handleGoalClick = (goal) => {
-    console.log("Clicked:", goal);
     setSelectedGoal(goal);
   };
 

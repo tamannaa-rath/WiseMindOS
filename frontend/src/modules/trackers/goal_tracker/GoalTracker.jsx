@@ -246,8 +246,6 @@ const GoalTracker = () => {
     const goalProjects = getProjectsByGoal(selectedGoal.id);
     const progress = calculateGoalProgress(selectedGoal.id);
 
-    console.log(selectedGoal)
-
     if(selectedProject) return;
 
     return (
