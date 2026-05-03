@@ -45,7 +45,7 @@ const Dashboard = () => {
     calculateDisciplineScore
   } = useApp();
 
-  const [newProfile, setNewProfile] = useState({ name: user.name, username: user.username, bio: user.bio, profile_picture: null });
+  const [newProfile, setNewProfile] = useState({ name: user.name, username: user.username, bio: user.bio });
   const [newProfilePic, setNewProfilePic] = useState(null);
 
   const navigate = useNavigate();
@@ -103,70 +103,69 @@ const Dashboard = () => {
     e.preventDefault();
 
     // Prepare only changed fields
-    // const updates = {};
+    const updates = {};
 
-    // if (newProfile.name !== "" && newProfile.name !== user.name) {
-    //   updates.name = newProfile.name;
-    // }
-
-    // if (newProfile.username !== "" && newProfile.username !== user.username) {
-    //   updates.username = newProfile.username;
-    // }
-
-    // if (newProfile.bio !== user.bio) {
-    //   updates.bio = newProfile.bio;
-    // }
-
-    // // If nothing changed → don't call API
-    // if (Object.keys(updates).length === 0) {
-    //   setShowEditProfile(false);
-    //   return;
-    // }
-
-    // // Call context API
-    // const success = await updateUser(updates);
-
-    const formData = new FormData();
-    let hasChanges = false;
-
-    // TEXT fields
     if (newProfile.name !== "" && newProfile.name !== user.name) {
-      formData.append("name", newProfile.name);
-      hasChanges = true;
+      updates.name = newProfile.name;
     }
 
     if (newProfile.username !== "" && newProfile.username !== user.username) {
-      formData.append("username", newProfile.username);
-      hasChanges = true;
+      updates.username = newProfile.username;
     }
 
     if (newProfile.bio !== user.bio) {
-      formData.append("bio", newProfile.bio);
-      hasChanges = true;
+      updates.bio = newProfile.bio;
     }
 
-    // 🔥 IMAGE FIELD (IMPORTANT)
-    if (newProfile.profile_picture) {
-      formData.append("profile", newProfile.profile_picture);
-      hasChanges = true;
-    }
-
-    // If nothing changed
-    if (!hasChanges) {
+    // If nothing changed → don't call API
+    if (Object.keys(updates).length === 0) {
       setShowEditProfile(false);
       return;
     }
 
-    // Call API
-    const success = await updateUser(formData);
+    // Call context API
+    const success = await updateUser(updates);
+
+    // const formData = new FormData();
+    // let hasChanges = false;
+
+    // // TEXT fields
+    // if (newProfile.name !== "" && newProfile.name !== user.name) {
+    //   formData.append("name", newProfile.name);
+    //   hasChanges = true;
+    // }
+
+    // if (newProfile.username !== "" && newProfile.username !== user.username) {
+    //   formData.append("username", newProfile.username);
+    //   hasChanges = true;
+    // }
+
+    // if (newProfile.bio !== user.bio) {
+    //   formData.append("bio", newProfile.bio);
+    //   hasChanges = true;
+    // }
+
+    // // 🔥 IMAGE FIELD (IMPORTANT)
+    // if (newProfile.profile_picture) {
+    //   formData.append("profile", newProfile.profile_picture);
+    //   hasChanges = true;
+    // }
+
+    // // If nothing changed
+    // if (!hasChanges) {
+    //   setShowEditProfile(false);
+    //   return;
+    // }
+
+    // // Call API
+    // const success = await updateUser(formData);
 
     if (success) {
       // Reset form with updated values
       setNewProfile({
-        name: formData.name ?? user.name,
-        username: formData.username ?? user.username,
-        bio: formData.bio ?? user.bio,
-        profile_picture: null
+        name: updates.name ?? user.name,
+        username: updates.username ?? user.username,
+        bio: updates.bio ?? user.bio
       });
 
       setShowEditProfile(false);
