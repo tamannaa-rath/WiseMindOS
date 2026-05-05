@@ -99,8 +99,13 @@ const FutureTwin = () => {
 
               {/* Scan Line Effect */}
               <motion.div
-                className="absolute top-0 left-0 w-full h-1 bg-indigo-400 opacity-60"
+                className="absolute top-0 left-0 w-full h-1 bg-indigo-400 opacity-0 lg:opacity-60"
                 animate={{ y: [0, 235, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              <motion.div
+                className="absolute top-0 left-0 w-[80%] h-1 justify-self-center bg-indigo-400 opacity-60 lg:opacity-0"
+                animate={{ y: [0, 170, 0] }}
                 transition={{ duration: 3, repeat: Infinity }}
               />
 
