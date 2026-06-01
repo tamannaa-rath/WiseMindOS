@@ -91,16 +91,30 @@ const googleLogin = async (req, res) => {
             
             const baseUsername = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
             let generatedUsername = `${baseUsername}${Math.floor(1000 + Math.random() * 9000)}`;
+            
             let isUnique = false;
+            let iterations = 0;
+            const MAX_ITERATIONS = 5; 
 
-            // Loop until we find a username that doesn't exist in the database
-            while (!isUnique) {
+            while (!isUnique && iterations < MAX_ITERATIONS) {
                 const checkUsernameConflict = await userModel.findOne({ username: generatedUsername });
+                
                 if (!checkUsernameConflict) {
                     isUnique = true; 
                 } else {
-                    generatedUsername = `${baseUsername}${Math.floor(1000 + Math.random() * 9000)}`;
+                    iterations++;
+                    if (iterations >= 3) {
+                        const randomString = Math.random().toString(36).substring(2, 7); 
+                        generatedUsername = `${baseUsername}${randomString}`;
+                    } else {
+                        generatedUsername = `${baseUsername}${Math.floor(1000 + Math.random() * 9000)}`;
+                    }
                 }
+            }
+
+            //Timestamp fallback if uniqueness is not achieved after max iterations (extremely unlikely)
+            if (!isUnique) {
+                generatedUsername = `${baseUsername}${Date.now().toString().slice(-5)}`;
             }
 
             user = await userModel.create({
