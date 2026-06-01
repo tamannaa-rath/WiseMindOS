@@ -67,31 +67,31 @@ const Pricing = () => {
   const isYearly = billing === 'yearly';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white px-4 py-10">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen overflow-x-hidden bg-gradient-to-br from-black via-gray-900 to-black text-white px-4 py-10">
+      <div className="w-full max-w-6xl mx-auto">
         <MotionHeader
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between mb-12"
+          className="flex min-w-0 flex-col gap-8 lg:flex-row lg:items-end lg:justify-between mb-12"
         >
-          <div className="max-w-3xl">
-            <Link to="/" className="inline-flex items-center gap-2 text-sm text-indigo-300 hover:text-white transition mb-6">
+          <div className="min-w-0 max-w-3xl">
+            <Link to="/" className="flex w-fit items-center gap-2 text-sm text-indigo-300 hover:text-white transition mb-6">
               Wise<span className="text-purple-300">Mind</span>OS
             </Link>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-indigo-200 mb-5">
-              <Sparkles size={16} />
-              Flexible plans for every growth system
+            <div className="flex w-fit max-w-full items-start gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-indigo-200 mb-5">
+              <Sparkles size={16} className="mt-0.5 flex-shrink-0" />
+              <span className="min-w-0">Flexible plans for every growth system</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-normal text-white mb-5">
+            <h1 className="max-w-full text-4xl md:text-6xl font-extrabold tracking-normal text-white mb-5">
               Pricing that scales with your discipline.
             </h1>
-            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
+            <p className="max-w-full text-lg md:text-xl text-gray-400 leading-relaxed">
               Start with personal tracking, then unlock deeper analytics, simulations, and shared planning when your system matures.
             </p>
           </div>
 
-          <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-white/5 p-2">
+          <div className="w-full min-w-0 max-w-sm rounded-2xl border border-white/10 bg-white/5 p-2">
             <div className="grid grid-cols-2 gap-2">
               {['monthly', 'yearly'].map((option) => (
                 <button
@@ -112,7 +112,7 @@ const Pricing = () => {
           </div>
         </MotionHeader>
 
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-14">
+        <section className="grid min-w-0 grid-cols-1 lg:grid-cols-3 gap-6 mb-14">
           {plans.map((plan, index) => {
             const price = isYearly ? plan.yearly : plan.monthly;
             const cadence = isYearly && price > 0 ? '/yr' : price > 0 ? '/mo' : '';
@@ -125,7 +125,7 @@ const Pricing = () => {
                 transition={{ delay: index * 0.08, duration: 0.45 }}
               >
                 <Card
-                  className={`h-full border backdrop-blur-lg transition ${
+                  className={`h-full min-w-0 border backdrop-blur-lg transition ${
                     plan.highlighted
                       ? 'bg-white/10 border-purple-400/40 shadow-[0_0_34px_rgba(124,58,237,0.25)]'
                       : 'bg-white/5 border-white/10'
@@ -145,7 +145,7 @@ const Pricing = () => {
                     <span className="text-5xl font-extrabold">${price}</span>
                     <span className="text-gray-400 ml-2">{cadence}</span>
                   </div>
-                  <Link to="/signup" className="block mb-8">
+                  <Link to="/signup" className="block min-w-0 mb-8">
                     <GradientButton className="w-full flex items-center justify-center gap-2">
                       {plan.cta}
                       <ArrowRight size={18} />
@@ -165,8 +165,8 @@ const Pricing = () => {
           })}
         </section>
 
-        <section className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 mb-14">
-          <Card className="bg-white/5 border border-white/10 backdrop-blur-lg">
+        <section className="grid min-w-0 grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 mb-14">
+          <Card className="min-w-0 bg-white/5 border border-white/10 backdrop-blur-lg">
             <div className="flex items-center gap-3 mb-5">
               <div className="p-3 rounded-xl bg-indigo-500/15 text-indigo-300">
                 <Shield size={24} />
@@ -191,7 +191,7 @@ const Pricing = () => {
             </div>
           </Card>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg">
+          <div className="min-w-0 overflow-x-auto rounded-2xl border border-white/10 bg-white/5 backdrop-blur-lg">
             <div className="grid min-w-[680px] grid-cols-4 bg-white/10 text-sm font-semibold text-gray-200">
               <div className="p-4">Feature</div>
               <div className="p-4">Starter</div>
