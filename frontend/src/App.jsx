@@ -30,7 +30,8 @@ import ErrorPage from './pages/ErrorPage';
   function App() {
     const { token } = useApp();
     return (
-      <ErrorBoundary fallback={<ErrorPage />}>
+      <>
+        <ErrorBoundary fallback={<ErrorPage />}>
         <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           {/* Public Routes */}
