@@ -289,6 +289,14 @@ const updateUserProfilePic = async (req, res) => {
         // const cover = req.files.cover && req.files.cover[0];
 
         if(profile){
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+            if (!allowedTypes.includes(profile.mimetype)) {
+                if (fs.existsSync(profile.path)) {
+                    fs.unlinkSync(profile.path);
+                }
+                return res.json({ success: false, message: "Invalid file type. Only JPEG, PNG, and WebP are allowed." });
+            }
+
             const buffer = fs.readFileSync(profile.path)
             const response = await imagekit.upload({
                 file: buffer,
