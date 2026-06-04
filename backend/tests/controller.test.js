@@ -14,6 +14,11 @@ const originals = [];
 function mockResponse() {
     return {
         body: undefined,
+        statusCode: 200,
+        status(code) {
+            this.statusCode = code;
+            return this;
+        },
         json(payload) {
             this.body = payload;
             return payload;
@@ -140,7 +145,7 @@ test('authUser stores decoded user id and calls next for a valid token', async (
     const previousSecret = process.env.JWT_SECRET;
     process.env.JWT_SECRET = 'test-secret';
     const token = jwt.sign({ id: 'user-123' }, process.env.JWT_SECRET);
-    const req = { headers: { token }, body: {} };
+    const req = { headers: { authorization: `Bearer ${token}` }, body: {} };
     let nextCalled = false;
 
     try {

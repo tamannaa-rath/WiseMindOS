@@ -15,7 +15,7 @@ const createToken = (id) => {
 
 
 // Route for user Login 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
 
     try {
 
@@ -44,14 +44,13 @@ const loginUser = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message })
+        next(error);
     }
 
 }
 
 //Route for Google SignIn
-const googleLogin = async (req, res) => {
+const googleLogin = async (req, res, next) => {
     try {
         const { credential } = req.body;
 
@@ -142,13 +141,12 @@ const googleLogin = async (req, res) => {
             profile_picture: user.profile_picture
         });
     } catch (error) {
-        console.log(error);
-        return res.json({ success: false, message: error.message });
+        next(error);
     }
 }
 
 // Route for User register
-const registerUser = async (req, res) => {
+const registerUser = async (req, res, next) => {
 
     try {
 
@@ -197,13 +195,12 @@ const registerUser = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message })
+        next(error);
     }
 
 }
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
     try {
 
         const userId = req.body.userId; // coming from middleware
@@ -265,13 +262,12 @@ const updateUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        next(error);
     }
 };
 
 
-const updateUserProfilePic = async (req, res) => {
+const updateUserProfilePic = async (req, res, next) => {
     try {
 
         const userId = req.body.userId; // coming from middleware
@@ -343,8 +339,7 @@ const updateUserProfilePic = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error);
-        res.json({ success: false, message: error.message });
+        next(error);
     }
 };
 
