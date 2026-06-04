@@ -284,16 +284,28 @@ const Dashboard = () => {
 
             <div className="rounded w-full mb-6 flex flex-col items-center">
               <div className='w-full flex items-end justify-end'>
-                <button onClick={() => setShowEditProfile(true)} className='bg-white/10 hover:bg-white/15 cursor-pointer border flex gap-2 border-white/15 hover:border-white/25 hover:translate-y-0.5 px-3 py-3 rounded-full text-white default-bold shadow-[0_0_10px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300'> <UserPen size={20} /></button>
+                <button
+                  type="button"
+                  onClick={() => setShowEditProfile(true)}
+                  aria-label="Edit profile details"
+                  className='bg-white/10 hover:bg-white/15 cursor-pointer border flex gap-2 border-white/15 hover:border-white/25 hover:translate-y-0.5 px-3 py-3 rounded-full text-white default-bold shadow-[0_0_10px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
+                >
+                  <UserPen aria-hidden="true" size={20} />
+                </button>
               </div>
               {/* Image div  */}
               <div className='h-30 w-30 rounded-full relative group border-6 border-black/15 shadow-[0_0_40px_rgba(99,102,241,0.2)] shrink-0'>
-                <img src={user.profile_picture || profile_pic} className='w-full h-full object-cover rounded-full' alt="" />
-                <div onClick={()=>setShowEditProfilePic(true)} className='w-full h-full bg-black/50 absolute rounded-full inset-0 cursor-pointer opacity-0 z-10 group-hover:opacity-100'>
+                <img src={user.profile_picture || profile_pic} className='w-full h-full object-cover rounded-full' alt={`${user.name || 'User'} profile`} />
+                <button
+                  type="button"
+                  onClick={()=>setShowEditProfilePic(true)}
+                  aria-label="Change profile picture"
+                  className='w-full h-full bg-black/50 absolute rounded-full inset-0 cursor-pointer opacity-0 z-10 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900'
+                >
                   <div className='h-full w-full flex items-center justify-center'>
-                    <Camera size={18} className='text-white' />
+                    <Camera aria-hidden="true" size={18} className='text-white' />
                   </div>
-                </div>
+                </button>
                 <div className='border-6 h-5 w-5 rounded-full z-10 bottom-1 absolute right-1 border-green-400'></div>
               </div>
               <div className='flex flex-col items-center'>
@@ -701,13 +713,15 @@ const Dashboard = () => {
                         {/* Completion Toggle */}
                         <button
                           onClick={() => toggleDailyPlanTaskCompletion(item.id)}
+                          aria-label={`${item.completed ? 'Mark incomplete' : 'Mark complete'}: ${item.title}`}
+                          aria-pressed={item.completed}
                           className={`p-2 rounded-lg transition-all ${item.completed
                             ? 'bg-green-500/20 text-green-400'
                             : 'bg-gray-700/50 text-gray-400 hover:bg-green-500/20 hover:text-green-400'
-                            }`}
+                            } focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900`}
                           data-testid={`toggle-planned-task-${item.id}`}
                         >
-                          <CheckCircle size={20} />
+                          <CheckCircle aria-hidden="true" size={20} />
                         </button>
                       </div>
                     </div>
@@ -893,8 +907,9 @@ const Dashboard = () => {
           />
 
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-2">Bio</label>
+            <label htmlFor="profile-bio" className="block text-gray-300 text-sm font-medium mb-2">Bio</label>
             <textarea
+              id="profile-bio"
               value={newProfile.bio}
               onChange={(e) => setNewProfile({ ...newProfile, bio: e.target.value })}
               placeholder="Say something intresting about you..."
@@ -919,9 +934,9 @@ const Dashboard = () => {
               <input hidden type="file" accept='image/*' id='profile_picture' className='w-full p-3 border border-gray-200 rounded-lg' onChange={(e) => setNewProfilePic(e.target.files[0])} />
 
               <div className='group/profile relative'>
-                <img src={newProfilePic ? URL.createObjectURL(newProfilePic) : user.profile_picture || profile_pic} alt="" className='w-24 h-24 rounded-full object-cover mt-2' />
+                <img src={newProfilePic ? URL.createObjectURL(newProfilePic) : user.profile_picture || profile_pic} alt="Profile picture preview" className='w-24 h-24 rounded-full object-cover mt-2' />
                 <div className='absolute hidden cursor-pointer group-hover/profile:flex top-0 left-0 right-0 bottom-0 bg-black/20 rounded-full items-center justify-center'>
-                  <Pencil className='w-5 h-5 text-white' />
+                  <Pencil aria-hidden="true" className='w-5 h-5 text-white' />
                 </div>
               </div>
             </label>
